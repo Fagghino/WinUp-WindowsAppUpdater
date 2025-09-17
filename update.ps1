@@ -7,10 +7,13 @@ function Get-InstalledApps {
     if (-not $wingetOutput -or $wingetOutput.Count -lt 2) { return @() }
     $header = $wingetOutput[0]
     $data = $wingetOutput | Select-Object -Skip 1
-    # Trova le posizioni delle colonne principali
+    # Supporta header in italiano e inglese
     $nameIdx = $header.IndexOf('Name')
     $idIdx = $header.IndexOf('Id')
     $versionIdx = $header.IndexOf('Version')
+    if ($nameIdx -lt 0) { $nameIdx = $header.IndexOf('Nome') }
+    if ($versionIdx -lt 0) { $versionIdx = $header.IndexOf('Versione') }
+    # "Disponibile"/"Available" non serve per la lista base
     if ($nameIdx -lt 0 -or $idIdx -lt 0 -or $versionIdx -lt 0) { return @() }
     $result = @()
     foreach ($line in $data) {
