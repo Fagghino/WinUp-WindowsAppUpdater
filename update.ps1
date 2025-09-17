@@ -144,7 +144,7 @@ function Show-UpdateGUI {
         }
     }
 
-    $form.Shown.Add({
+    $form.Add_Shown({
         Start-Job -ScriptBlock {
             return [ScriptBlock]::Create('Get-InstalledApps').Invoke()
         } | Wait-Job | Receive-Job | ForEach-Object {
