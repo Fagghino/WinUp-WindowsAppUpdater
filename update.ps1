@@ -7,25 +7,31 @@ function Get-InstalledApps {
     if (-not $wingetOutput -or $wingetOutput.Count -lt 2) { return @() }
     $header = $wingetOutput[0]
     $data = $wingetOutput | Select-Object -Skip 1
-    # Supporta header in italiano e inglese
-    $nameIdx = $header.IndexOf('Name')
-    $idIdx = $header.IndexOf('Id')
-    $versionIdx = $header.IndexOf('Version')
-    if ($nameIdx -lt 0) { $nameIdx = $header.IndexOf('Nome') }
-    if ($versionIdx -lt 0) { $versionIdx = $header.IndexOf('Versione') }
-    # "Disponibile"/"Available" non serve per la lista base
-    if ($nameIdx -lt 0 -or $idIdx -lt 0 -or $versionIdx -lt 0) { return @() }
+    # Trova le posizioni delle colonne usando regex
+    $nameMatch = [regex]::Match($header, '(Nome|Name)')
+    $idMatch = [regex]::Match($header, '\bId\b')
+    $versionMatch = [regex]::Match($header, '(Versione|Version)')
+    if (-not $nameMatch.Success -or -not $idMatch.Success -or -not $versionMatch.Success) { return @() }
+    $nameIdx = $nameMatch.Index
+    $idIdx = $idMatch.Index
+    $versionIdx = $versionMatch.Index
     $result = @()
     foreach ($line in $data) {
-        if ($line.Trim() -eq "") { continue }
-        $name = $line.Substring($nameIdx, $idIdx - $nameIdx).Trim()
-        $id = $line.Substring($idIdx, $versionIdx - $idIdx).Trim()
-        # Prendi la versione fino alla fine della riga
-        $version = $line.Substring($versionIdx).Trim().Split(' ')[0]
-        $result += [PSCustomObject]@{
-            Name = $name
-            Id = $id
-            Version = $version
+        if ($line.Trim() -eq "" -or $line -match '^-{5,}') { continue }
+        try {
+            $name = $line.Substring($nameIdx, $idIdx - $nameIdx).Trim()
+            $id = $line.Substring($idIdx, $versionIdx - $idIdx).Trim()
+            $version = $line.Substring($versionIdx).Trim().Split(' ')[0]
+            if ($name -and $id -and $version) {
+                $result += [PSCustomObject]@{
+                    Name = $name
+                    Id = $id
+                    Version = $version
+                }
+            }
+        } catch {
+            # Salta righe malformate
+            continue
         }
     }
     return $result
