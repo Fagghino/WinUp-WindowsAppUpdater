@@ -3,15 +3,26 @@ Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
 function Get-InstalledApps {
-    $apps = winget list --source winget | Select-Object -Skip 1
+    $wingetOutput = winget list --source winget
+    if (-not $wingetOutput -or $wingetOutput.Count -lt 2) { return @() }
+    $header = $wingetOutput[0]
+    $data = $wingetOutput | Select-Object -Skip 1
+    # Trova le posizioni delle colonne principali
+    $nameIdx = $header.IndexOf('Name')
+    $idIdx = $header.IndexOf('Id')
+    $versionIdx = $header.IndexOf('Version')
+    if ($nameIdx -lt 0 -or $idIdx -lt 0 -or $versionIdx -lt 0) { return @() }
     $result = @()
-    foreach ($line in $apps) {
-        if ($line -match '^\s*(\S.*?)\s{2,}(\S.*?)\s{2,}(\S.*?)\s*$') {
-            $result += [PSCustomObject]@{
-                Name = $matches[1]
-                Id   = $matches[2]
-                Version = $matches[3]
-            }
+    foreach ($line in $data) {
+        if ($line.Trim() -eq "") { continue }
+        $name = $line.Substring($nameIdx, $idIdx - $nameIdx).Trim()
+        $id = $line.Substring($idIdx, $versionIdx - $idIdx).Trim()
+        # Prendi la versione fino alla fine della riga
+        $version = $line.Substring($versionIdx).Trim().Split(' ')[0]
+        $result += [PSCustomObject]@{
+            Name = $name
+            Id = $id
+            Version = $version
         }
     }
     return $result
@@ -134,13 +145,21 @@ function Show-UpdateGUI {
         if ($showingUpgradable) {
             $logBox.AppendText("Recupero lista app aggiornabili...`r`n")
             $upgradableApps = Get-UpgradableApps
+            if ($upgradableApps.Count -eq 0) {
+                $logBox.AppendText("Nessuna app aggiornabile trovata!`r`n")
+            }
             foreach ($app in $upgradableApps) {
                 $checkedListBox.Items.Add("$($app.Name) [$($app.Id)]", $false)
             }
+            $logBox.AppendText("Trovate $($upgradableApps.Count) app aggiornabili.`r`n")
         } else {
+            if ($apps.Count -eq 0) {
+                $logBox.AppendText("Nessuna app trovata!`r`n")
+            }
             foreach ($app in $apps) {
                 $checkedListBox.Items.Add("$($app.Name) [$($app.Id)]", $false)
             }
+            $logBox.AppendText("Trovate $($apps.Count) app installate.`r`n")
         }
     }
 
