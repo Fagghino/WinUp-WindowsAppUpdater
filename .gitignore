@@ -1,0 +1,21 @@
+# Escludi file temporanei, di sistema e personali
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# Escludi file di PowerShell generati
+*.ps1~
+*.psm1~
+
+# Escludi file di configurazione personali
+config.local.json
+
+# Escludi cartelle di backup o test
+/test/
+/backup/
+
+# Escludi file di VSCode
+.vscode/
