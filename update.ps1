@@ -3,28 +3,14 @@ Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
 function Get-InstalledApps {
-    $wingetOutput = winget list --source winget
-    if (-not $wingetOutput -or $wingetOutput.Count -lt 2) { return @() }
-    $header = $wingetOutput[0]
-    $data = $wingetOutput | Select-Object -Skip 1
-    # Trova le colonne dinamicamente
-    $headerCols = $header -split '\s{2,}'
-    $nameCol = ($headerCols | Where-Object { $_ -match '^(Nome|Name)$' })[0]
-    $idCol = ($headerCols | Where-Object { $_ -match '^Id$' })[0]
-    $versionCol = ($headerCols | Where-Object { $_ -match '^(Versione|Version)$' })[0]
-    $nameIdx = [array]::IndexOf($headerCols, $nameCol)
-    $idIdx = [array]::IndexOf($headerCols, $idCol)
-    $versionIdx = [array]::IndexOf($headerCols, $versionCol)
-    if ($nameIdx -lt 0 -or $idIdx -lt 0 -or $versionIdx -lt 0) { return @() }
+    $json = winget list --source winget --output json | Out-String | ConvertFrom-Json
+    if (-not $json -or -not $json.Data) { return @() }
     $result = @()
-    foreach ($line in $data) {
-        if ($line.Trim() -eq "" -or $line -match '^-{5,}') { continue }
-        $cols = $line -split '\s{2,}'
-        if ($cols.Count -lt ($versionIdx+1)) { continue }
+    foreach ($app in $json.Data) {
         $result += [PSCustomObject]@{
-            Name = $cols[$nameIdx].Trim()
-            Id = $cols[$idIdx].Trim()
-            Version = $cols[$versionIdx].Trim()
+            Name = $app.Name
+            Id = $app.Id
+            Version = $app.Version
         }
     }
     return $result
