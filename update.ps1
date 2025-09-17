@@ -123,18 +123,17 @@ function Show-UpdateGUI {
     $form.Controls.Add($logBox)
     $form.Controls.Add($buttonPanel)
 
-    $logBox.AppendText("Recupero lista app installate...`r`n")
-    $apps = Get-InstalledApps
+    $logBox.AppendText("Caricamento in corso...`r`n")
+    $apps = $null
     $upgradableApps = $null
     $showingUpgradable = $false
+    $loading = $true
 
     function RefreshAppList {
         $checkedListBox.Items.Clear()
         if ($showingUpgradable) {
-            if (-not $upgradableApps) {
-                $logBox.AppendText("Recupero lista app aggiornabili...`r`n")
-                $upgradableApps = Get-UpgradableApps
-            }
+            $logBox.AppendText("Recupero lista app aggiornabili...`r`n")
+            $upgradableApps = Get-UpgradableApps
             foreach ($app in $upgradableApps) {
                 $checkedListBox.Items.Add("$($app.Name) [$($app.Id)]", $false)
             }
@@ -145,10 +144,22 @@ function Show-UpdateGUI {
         }
     }
 
-    RefreshAppList
-    $logBox.AppendText("Seleziona le app da aggiornare e premi 'Aggiorna'.`r`n")
+    $form.Shown.Add({
+        Start-Job -ScriptBlock {
+            return [ScriptBlock]::Create('Get-InstalledApps').Invoke()
+        } | Wait-Job | Receive-Job | ForEach-Object {
+            $apps = $_
+        }
+        $form.Invoke({
+            $logBox.Clear()
+            RefreshAppList
+            $logBox.AppendText("Seleziona le app da aggiornare e premi 'Aggiorna'.`r`n")
+            $loading = $false
+        })
+    })
 
     $updateButton.Add_Click({
+        if ($loading) { return }
         $selectedIndices = $checkedListBox.CheckedIndices
         if ($selectedIndices.Count -eq 0) {
             [System.Windows.Forms.MessageBox]::Show("Seleziona almeno un'app da aggiornare.")
@@ -168,12 +179,14 @@ function Show-UpdateGUI {
     })
 
     $selectAllButton.Add_Click({
+        if ($loading) { return }
         for ($i = 0; $i -lt $checkedListBox.Items.Count; $i++) {
             $checkedListBox.SetItemChecked($i, $true)
         }
     })
 
     $deselectAllButton.Add_Click({
+        if ($loading) { return }
         for ($i = 0; $i -lt $checkedListBox.Items.Count; $i++) {
             $checkedListBox.SetItemChecked($i, $false)
         }
@@ -184,6 +197,7 @@ function Show-UpdateGUI {
     })
 
     $showUpgradableButton.Add_Click({
+        if ($loading) { return }
         $showingUpgradable = -not $showingUpgradable
         if ($showingUpgradable) {
             $showUpgradableButton.Text = "Mostra tutte le app"
