@@ -5,23 +5,25 @@ Add-Type -AssemblyName System.Drawing
 function Get-InstalledApps {
     $tempFile = [System.IO.Path]::GetTempFileName() + ".json"
     try {
-        winget export -o $tempFile --source winget --accept-source-agreements | Out-Null
+        $exportResult = winget export -o $tempFile --source winget --accept-source-agreements 2>&1
         if (Test-Path $tempFile) {
-            $json = Get-Content $tempFile -Raw | ConvertFrom-Json
-            if ($json -and $json.Sources -and $json.Sources[0].Packages) {
-                $result = @()
-                foreach ($pkg in $json.Sources[0].Packages) {
-                    $result += [PSCustomObject]@{
-                        Name = $pkg.PackageIdentifier
-                        Id = $pkg.PackageIdentifier
-                        Version = $pkg.Version
+            $jsonContent = Get-Content $tempFile -Raw
+            if ($jsonContent) {
+                $json = $jsonContent | ConvertFrom-Json
+                if ($json -and $json.Sources -and $json.Sources[0].Packages) {
+                    $result = @()
+                    foreach ($pkg in $json.Sources[0].Packages) {
+                        $result += [PSCustomObject]@{
+                            Name = $pkg.PackageIdentifier
+                            Id = $pkg.PackageIdentifier
+                            Version = $pkg.Version
+                        }
                     }
+                    return $result
                 }
-                return $result
             }
         }
-    } catch {
-        # Fallback al parsing di testo se export fallisce
+        # Fallback al parsing di testo
         $wingetOutput = winget list --source winget
         if (-not $wingetOutput -or $wingetOutput.Count -lt 2) { return @() }
         $header = $wingetOutput[0]
@@ -52,10 +54,11 @@ function Get-InstalledApps {
             }
         }
         return $result
+    } catch {
+        return @()
     } finally {
         if (Test-Path $tempFile) { Remove-Item $tempFile -Force }
     }
-    return @()
 }
 
 # Recupera solo le app con aggiornamento disponibile
@@ -183,13 +186,16 @@ function Show-UpdateGUI {
             }
             $logBox.AppendText("Trovate $($upgradableApps.Count) app aggiornabili.`r`n")
         } else {
+            $logBox.AppendText("Recupero lista app installate...`r`n")
+            $apps = Get-InstalledApps
             if ($apps.Count -eq 0) {
-                $logBox.AppendText("Nessuna app trovata!`r`n")
+                $logBox.AppendText("Nessuna app trovata! Verifica che winget sia installato e funzionante.`r`n")
+            } else {
+                $logBox.AppendText("Trovate $($apps.Count) app installate.`r`n")
             }
             foreach ($app in $apps) {
                 $checkedListBox.Items.Add("$($app.Name) [$($app.Id)]", $false)
             }
-            $logBox.AppendText("Trovate $($apps.Count) app installate.`r`n")
         }
     }
 
