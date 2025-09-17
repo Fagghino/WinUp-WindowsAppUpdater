@@ -54,53 +54,74 @@ function Update-SelectedApps {
 function Show-UpdateGUI {
     $form = New-Object System.Windows.Forms.Form
     $form.Text = "Aggiorna App con Winget"
-    $form.Size = New-Object System.Drawing.Size(650, 650)
+    $form.Size = New-Object System.Drawing.Size(700, 700)
     $form.StartPosition = "CenterScreen"
+    $form.BackColor = [System.Drawing.Color]::FromArgb(245, 245, 245)
 
     $checkedListBox = New-Object System.Windows.Forms.CheckedListBox
-    $checkedListBox.Size = New-Object System.Drawing.Size(600, 300)
-    $checkedListBox.Location = New-Object System.Drawing.Point(10, 10)
+    $checkedListBox.Size = New-Object System.Drawing.Size(650, 320)
+    $checkedListBox.Location = New-Object System.Drawing.Point(20, 20)
     $checkedListBox.CheckOnClick = $true
+    $checkedListBox.BackColor = [System.Drawing.Color]::White
 
     $logBox = New-Object System.Windows.Forms.TextBox
     $logBox.Multiline = $true
     $logBox.ScrollBars = "Vertical"
-    $logBox.Size = New-Object System.Drawing.Size(600, 180)
-    $logBox.Location = New-Object System.Drawing.Point(10, 320)
+    $logBox.Size = New-Object System.Drawing.Size(650, 200)
+    $logBox.Location = New-Object System.Drawing.Point(20, 350)
     $logBox.ReadOnly = $true
+    $logBox.BackColor = [System.Drawing.Color]::WhiteSmoke
+
+    # Pannello per i pulsanti
+    $buttonPanel = New-Object System.Windows.Forms.Panel
+    $buttonPanel.Size = New-Object System.Drawing.Size(650, 60)
+    $buttonPanel.Location = New-Object System.Drawing.Point(20, 570)
+    $buttonPanel.BackColor = [System.Drawing.Color]::FromArgb(230,230,230)
 
     $updateButton = New-Object System.Windows.Forms.Button
     $updateButton.Text = "Aggiorna"
-    $updateButton.Size = New-Object System.Drawing.Size(100, 30)
-    $updateButton.Location = New-Object System.Drawing.Point(10, 510)
+    $updateButton.Size = New-Object System.Drawing.Size(110, 40)
+    $updateButton.Location = New-Object System.Drawing.Point(10, 10)
+    $updateButton.BackColor = [System.Drawing.Color]::LightGreen
+    $updateButton.FlatStyle = 'Flat'
 
     $selectAllButton = New-Object System.Windows.Forms.Button
     $selectAllButton.Text = "Seleziona tutto"
-    $selectAllButton.Size = New-Object System.Drawing.Size(120, 30)
-    $selectAllButton.Location = New-Object System.Drawing.Point(120, 510)
+    $selectAllButton.Size = New-Object System.Drawing.Size(120, 40)
+    $selectAllButton.Location = New-Object System.Drawing.Point(130, 10)
+    $selectAllButton.BackColor = [System.Drawing.Color]::LightSkyBlue
+    $selectAllButton.FlatStyle = 'Flat'
 
     $deselectAllButton = New-Object System.Windows.Forms.Button
     $deselectAllButton.Text = "Deseleziona tutto"
-    $deselectAllButton.Size = New-Object System.Drawing.Size(120, 30)
-    $deselectAllButton.Location = New-Object System.Drawing.Point(250, 510)
-
-    $closeButton = New-Object System.Windows.Forms.Button
-    $closeButton.Text = "Chiudi"
-    $closeButton.Size = New-Object System.Drawing.Size(100, 30)
-    $closeButton.Location = New-Object System.Drawing.Point(380, 510)
+    $deselectAllButton.Size = New-Object System.Drawing.Size(120, 40)
+    $deselectAllButton.Location = New-Object System.Drawing.Point(260, 10)
+    $deselectAllButton.BackColor = [System.Drawing.Color]::LightSkyBlue
+    $deselectAllButton.FlatStyle = 'Flat'
 
     $showUpgradableButton = New-Object System.Windows.Forms.Button
     $showUpgradableButton.Text = "Mostra solo aggiornabili"
-    $showUpgradableButton.Size = New-Object System.Drawing.Size(200, 30)
-    $showUpgradableButton.Location = New-Object System.Drawing.Point(490, 510)
+    $showUpgradableButton.Size = New-Object System.Drawing.Size(170, 40)
+    $showUpgradableButton.Location = New-Object System.Drawing.Point(390, 10)
+    $showUpgradableButton.BackColor = [System.Drawing.Color]::Orange
+    $showUpgradableButton.FlatStyle = 'Flat'
+
+    $closeButton = New-Object System.Windows.Forms.Button
+    $closeButton.Text = "Chiudi"
+    $closeButton.Size = New-Object System.Drawing.Size(100, 40)
+    $closeButton.Location = New-Object System.Drawing.Point(570, 10)
+    $closeButton.BackColor = [System.Drawing.Color]::Salmon
+    $closeButton.FlatStyle = 'Flat'
+
+    $buttonPanel.Controls.Add($updateButton)
+    $buttonPanel.Controls.Add($selectAllButton)
+    $buttonPanel.Controls.Add($deselectAllButton)
+    $buttonPanel.Controls.Add($showUpgradableButton)
+    $buttonPanel.Controls.Add($closeButton)
 
     $form.Controls.Add($checkedListBox)
     $form.Controls.Add($logBox)
-    $form.Controls.Add($updateButton)
-    $form.Controls.Add($selectAllButton)
-    $form.Controls.Add($deselectAllButton)
-    $form.Controls.Add($closeButton)
-    $form.Controls.Add($showUpgradableButton)
+    $form.Controls.Add($buttonPanel)
 
     $logBox.AppendText("Recupero lista app installate...`r`n")
     $apps = Get-InstalledApps
@@ -178,4 +199,4 @@ function Show-UpdateGUI {
 }
 
 # Entry point
-Show-UpdateGUI
+[void] (Show-UpdateGUI)
