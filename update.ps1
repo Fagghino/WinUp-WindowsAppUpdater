@@ -173,32 +173,32 @@ function Show-UpdateGUI {
     $form.Controls.Add($buttonPanel)
 
     $logBox.AppendText("Caricamento in corso...`r`n")
-    $apps = $null
-    $upgradableApps = $null
-    $showingUpgradable = $false
-    $loading = $true
+    $script:apps = $null
+    $script:upgradableApps = $null
+    $script:showingUpgradable = $false
+    $script:loading = $true
 
     function RefreshAppList {
         $checkedListBox.Items.Clear()
-        if ($showingUpgradable) {
+        if ($script:showingUpgradable) {
             $logBox.AppendText("Recupero lista app aggiornabili...`r`n")
-            $upgradableApps = Get-UpgradableApps
-            if ($upgradableApps.Count -eq 0) {
+            $script:upgradableApps = Get-UpgradableApps
+            if ($script:upgradableApps.Count -eq 0) {
                 $logBox.AppendText("Nessuna app aggiornabile trovata!`r`n")
             }
-            foreach ($app in $upgradableApps) {
+            foreach ($app in $script:upgradableApps) {
                 $checkedListBox.Items.Add("$($app.Name) [$($app.Id)]", $false)
             }
-            $logBox.AppendText("Trovate $($upgradableApps.Count) app aggiornabili.`r`n")
+            $logBox.AppendText("Trovate $($script:upgradableApps.Count) app aggiornabili.`r`n")
         } else {
             $logBox.AppendText("Recupero lista app installate...`r`n")
-            $apps = Get-InstalledApps
-            if ($apps.Count -eq 0) {
+            $script:apps = Get-InstalledApps
+            if ($script:apps.Count -eq 0) {
                 $logBox.AppendText("Nessuna app trovata! Verifica che winget sia installato e funzionante.`r`n")
             } else {
-                $logBox.AppendText("Trovate $($apps.Count) app installate.`r`n")
+                $logBox.AppendText("Trovate $($script:apps.Count) app installate.`r`n")
             }
-            foreach ($app in $apps) {
+            foreach ($app in $script:apps) {
                 $checkedListBox.Items.Add("$($app.Name) [$($app.Id)]", $false)
             }
         }
@@ -225,34 +225,34 @@ function Show-UpdateGUI {
     $form.Add_Shown({ $worker.RunWorkerAsync() })
 
     $updateButton.Add_Click({
-        if ($loading) { return }
+        if ($script:loading) { return }
         $selectedIndices = $checkedListBox.CheckedIndices
         if ($selectedIndices.Count -eq 0) {
             [System.Windows.Forms.MessageBox]::Show("Seleziona almeno un'app da aggiornare.")
             return
         }
         $selectedApps = @()
-        if ($showingUpgradable) {
+        if ($script:showingUpgradable) {
             foreach ($i in $selectedIndices) {
-                $selectedApps += $upgradableApps[$i]
+                $selectedApps += $script:upgradableApps[$i]
             }
         } else {
             foreach ($i in $selectedIndices) {
-                $selectedApps += $apps[$i]
+                $selectedApps += $script:apps[$i]
             }
         }
         Update-SelectedApps -SelectedApps $selectedApps -LogBox $logBox
     })
 
     $selectAllButton.Add_Click({
-        if ($loading) { return }
+        if ($script:loading) { return }
         for ($i = 0; $i -lt $checkedListBox.Items.Count; $i++) {
             $checkedListBox.SetItemChecked($i, $true)
         }
     })
 
     $deselectAllButton.Add_Click({
-        if ($loading) { return }
+        if ($script:loading) { return }
         for ($i = 0; $i -lt $checkedListBox.Items.Count; $i++) {
             $checkedListBox.SetItemChecked($i, $false)
         }
@@ -263,9 +263,9 @@ function Show-UpdateGUI {
     })
 
     $showUpgradableButton.Add_Click({
-        if ($loading) { return }
-        $showingUpgradable = -not $showingUpgradable
-        if ($showingUpgradable) {
+        if ($script:loading) { return }
+        $script:showingUpgradable = -not $script:showingUpgradable
+        if ($script:showingUpgradable) {
             $showUpgradableButton.Text = "Mostra tutte le app"
         } else {
             $showUpgradableButton.Text = "Mostra solo aggiornabili"
