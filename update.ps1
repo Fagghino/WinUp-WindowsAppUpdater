@@ -128,6 +128,7 @@ function Show-UpdateGUI {
     $updateButton.Location = New-Object System.Drawing.Point(10, 10)
     $updateButton.BackColor = [System.Drawing.Color]::LightGreen
     $updateButton.FlatStyle = 'Flat'
+    $updateButton.Enabled = $true
 
     $selectAllButton = New-Object System.Windows.Forms.Button
     $selectAllButton.Text = "Seleziona tutto"
@@ -135,6 +136,7 @@ function Show-UpdateGUI {
     $selectAllButton.Location = New-Object System.Drawing.Point(130, 10)
     $selectAllButton.BackColor = [System.Drawing.Color]::LightSkyBlue
     $selectAllButton.FlatStyle = 'Flat'
+    $selectAllButton.Enabled = $true
 
     $deselectAllButton = New-Object System.Windows.Forms.Button
     $deselectAllButton.Text = "Deseleziona tutto"
@@ -142,6 +144,7 @@ function Show-UpdateGUI {
     $deselectAllButton.Location = New-Object System.Drawing.Point(260, 10)
     $deselectAllButton.BackColor = [System.Drawing.Color]::LightSkyBlue
     $deselectAllButton.FlatStyle = 'Flat'
+    $deselectAllButton.Enabled = $true
 
     $showUpgradableButton = New-Object System.Windows.Forms.Button
     $showUpgradableButton.Text = "Mostra solo aggiornabili"
@@ -149,6 +152,7 @@ function Show-UpdateGUI {
     $showUpgradableButton.Location = New-Object System.Drawing.Point(390, 10)
     $showUpgradableButton.BackColor = [System.Drawing.Color]::Orange
     $showUpgradableButton.FlatStyle = 'Flat'
+    $showUpgradableButton.Enabled = $true
 
     $closeButton = New-Object System.Windows.Forms.Button
     $closeButton.Text = "Chiudi"
@@ -156,6 +160,7 @@ function Show-UpdateGUI {
     $closeButton.Location = New-Object System.Drawing.Point(570, 10)
     $closeButton.BackColor = [System.Drawing.Color]::Salmon
     $closeButton.FlatStyle = 'Flat'
+    $closeButton.Enabled = $true
 
     $buttonPanel.Controls.Add($updateButton)
     $buttonPanel.Controls.Add($selectAllButton)
@@ -210,6 +215,12 @@ function Show-UpdateGUI {
         RefreshAppList
         $logBox.AppendText("Seleziona le app da aggiornare e premi 'Aggiorna'.`r`n")
         $script:loading = $false
+        # Abilita pulsanti dopo caricamento
+        $updateButton.Enabled = $true
+        $selectAllButton.Enabled = $true
+        $deselectAllButton.Enabled = $true
+        $showUpgradableButton.Enabled = $true
+        $closeButton.Enabled = $true
     })
     $form.Add_Shown({ $worker.RunWorkerAsync() })
 
