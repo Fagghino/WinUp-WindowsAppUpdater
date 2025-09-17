@@ -7,25 +7,24 @@ function Get-InstalledApps {
     if (-not $wingetOutput -or $wingetOutput.Count -lt 2) { return @() }
     $header = $wingetOutput[0]
     $data = $wingetOutput | Select-Object -Skip 1
-    # Supporta header in italiano e inglese
-    $nameIdx = $header.IndexOf('Name')
-    $idIdx = $header.IndexOf('Id')
-    $versionIdx = $header.IndexOf('Version')
-    if ($nameIdx -lt 0) { $nameIdx = $header.IndexOf('Nome') }
-    if ($versionIdx -lt 0) { $versionIdx = $header.IndexOf('Versione') }
-    # "Disponibile"/"Available" non serve per la lista base
+    # Trova le colonne dinamicamente
+    $headerCols = $header -split '\s{2,}'
+    $nameCol = ($headerCols | Where-Object { $_ -match '^(Nome|Name)$' })[0]
+    $idCol = ($headerCols | Where-Object { $_ -match '^Id$' })[0]
+    $versionCol = ($headerCols | Where-Object { $_ -match '^(Versione|Version)$' })[0]
+    $nameIdx = [array]::IndexOf($headerCols, $nameCol)
+    $idIdx = [array]::IndexOf($headerCols, $idCol)
+    $versionIdx = [array]::IndexOf($headerCols, $versionCol)
     if ($nameIdx -lt 0 -or $idIdx -lt 0 -or $versionIdx -lt 0) { return @() }
     $result = @()
     foreach ($line in $data) {
-        if ($line.Trim() -eq "") { continue }
-        $name = $line.Substring($nameIdx, $idIdx - $nameIdx).Trim()
-        $id = $line.Substring($idIdx, $versionIdx - $idIdx).Trim()
-        # Prendi la versione fino alla fine della riga
-        $version = $line.Substring($versionIdx).Trim().Split(' ')[0]
+        if ($line.Trim() -eq "" -or $line -match '^-{5,}') { continue }
+        $cols = $line -split '\s{2,}'
+        if ($cols.Count -lt ($versionIdx+1)) { continue }
         $result += [PSCustomObject]@{
-            Name = $name
-            Id = $id
-            Version = $version
+            Name = $cols[$nameIdx].Trim()
+            Id = $cols[$idIdx].Trim()
+            Version = $cols[$versionIdx].Trim()
         }
     }
     return $result
