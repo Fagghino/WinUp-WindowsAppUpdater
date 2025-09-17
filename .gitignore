@@ -19,3 +19,5 @@ config.local.json
 
 # Escludi file di VSCode
 .vscode/
+
+PROMPT.txt
