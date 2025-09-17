@@ -3,14 +3,29 @@ Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
 function Get-InstalledApps {
-    $json = winget list --source winget --output json | Out-String | ConvertFrom-Json
-    if (-not $json -or -not $json.Data) { return @() }
+    $wingetOutput = winget list --source winget
+    if (-not $wingetOutput -or $wingetOutput.Count -lt 2) { return @() }
+    $header = $wingetOutput[0]
+    $data = $wingetOutput | Select-Object -Skip 1
+    # Supporta header in italiano e inglese
+    $nameIdx = $header.IndexOf('Name')
+    $idIdx = $header.IndexOf('Id')
+    $versionIdx = $header.IndexOf('Version')
+    if ($nameIdx -lt 0) { $nameIdx = $header.IndexOf('Nome') }
+    if ($versionIdx -lt 0) { $versionIdx = $header.IndexOf('Versione') }
+    # "Disponibile"/"Available" non serve per la lista base
+    if ($nameIdx -lt 0 -or $idIdx -lt 0 -or $versionIdx -lt 0) { return @() }
     $result = @()
-    foreach ($app in $json.Data) {
+    foreach ($line in $data) {
+        if ($line.Trim() -eq "") { continue }
+        $name = $line.Substring($nameIdx, $idIdx - $nameIdx).Trim()
+        $id = $line.Substring($idIdx, $versionIdx - $idIdx).Trim()
+        # Prendi la versione fino alla fine della riga
+        $version = $line.Substring($versionIdx).Trim().Split(' ')[0]
         $result += [PSCustomObject]@{
-            Name = $app.Name
-            Id = $app.Id
-            Version = $app.Version
+            Name = $name
+            Id = $id
+            Version = $version
         }
     }
     return $result

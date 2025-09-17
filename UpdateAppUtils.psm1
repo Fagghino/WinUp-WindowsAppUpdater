@@ -1,15 +1,29 @@
 # Modulo PowerShell per funzioni aggiuntive
 
 function Get-InstalledApps {
-    $apps = winget list --source winget | Select-Object -Skip 1
+    $wingetOutput = winget list --source winget
+    if (-not $wingetOutput -or $wingetOutput.Count -lt 2) { return @() }
+    $header = $wingetOutput[0]
+    $data = $wingetOutput | Select-Object -Skip 1
+    # Supporta header in italiano e inglese
+    $nameIdx = $header.IndexOf('Name')
+    $idIdx = $header.IndexOf('Id')
+    $versionIdx = $header.IndexOf('Version')
+    if ($nameIdx -lt 0) { $nameIdx = $header.IndexOf('Nome') }
+    if ($versionIdx -lt 0) { $versionIdx = $header.IndexOf('Versione') }
+    # "Disponibile"/"Available" non serve per la lista base
+    if ($nameIdx -lt 0 -or $idIdx -lt 0 -or $versionIdx -lt 0) { return @() }
     $result = @()
-    foreach ($line in $apps) {
-        if ($line -match '^\s*(\S.*?)\s{2,}(\S.*?)\s{2,}(\S.*?)\s*$') {
-            $result += [PSCustomObject]@{
-                Name = $matches[1]
-                Id   = $matches[2]
-                Version = $matches[3]
-            }
+    foreach ($line in $data) {
+        if ($line.Trim() -eq "") { continue }
+        $name = $line.Substring($nameIdx, $idIdx - $nameIdx).Trim()
+        $id = $line.Substring($idIdx, $versionIdx - $idIdx).Trim()
+        # Prendi la versione fino alla fine della riga
+        $version = $line.Substring($versionIdx).Trim().Split(' ')[0]
+        $result += [PSCustomObject]@{
+            Name = $name
+            Id = $id
+            Version = $version
         }
     }
     return $result
