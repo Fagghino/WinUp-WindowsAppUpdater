@@ -7,7 +7,7 @@ Questo script PowerShell permette di selezionare e aggiornare facilmente le appl
 Esegui direttamente da terminale PowerShell:
 
 ```
-irm https://raw.githubusercontent.com/<user>/<repo>/main/update.ps1 | iex
+irm https://raw.githubusercontent.com/Fagghino/Bot-Auto-Update/main/update.ps1 | iex
 ```
 
 ## Funzionalità
