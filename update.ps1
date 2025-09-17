@@ -147,15 +147,15 @@ function Show-UpdateGUI {
     # Caricamento asincrono con BackgroundWorker
     $worker = New-Object System.ComponentModel.BackgroundWorker
     $worker.WorkerReportsProgress = $false
-    $worker.DoWork += {
+    $worker.add_DoWork({
         $script:apps = Get-InstalledApps
-    }
-    $worker.RunWorkerCompleted += {
+    })
+    $worker.add_RunWorkerCompleted({
         $logBox.Clear()
         RefreshAppList
         $logBox.AppendText("Seleziona le app da aggiornare e premi 'Aggiorna'.`r`n")
         $script:loading = $false
-    }
+    })
     $form.Add_Shown({ $worker.RunWorkerAsync() })
 
     $updateButton.Add_Click({
