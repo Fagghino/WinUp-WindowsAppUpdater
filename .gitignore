@@ -3,22 +3,39 @@
 *.tmp
 *.bak
 *.swp
+*.old
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # Escludi file di PowerShell generati
 *.ps1~
 *.psm1~
+*.ps1xml
+*.pssc
+*.psd1~
+
+# Escludi transcript e debug logs
+PowerShell_transcript*.txt
+debug*.txt
 
 # Escludi file di configurazione personali
 config.local.json
+*.user.json
 
 # Escludi cartelle di backup o test
 /test/
 /backup/
+/logs/
 
 # Escludi file di VSCode
 .vscode/
+*.code-workspace
 
-# Escludi file di prompt
-PROMPT.txt
+# Escludi file di Windows
+$RECYCLE.BIN/
+*.lnk
+
+# Escludi cache e file temporanei di Windows
+*.cache
+~$*
