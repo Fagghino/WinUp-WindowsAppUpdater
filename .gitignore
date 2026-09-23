@@ -1,41 +1,85 @@
-# Escludi file temporanei, di sistema e personali
+# Escludi file temporanei e di sistema
 *.log
 *.tmp
 *.bak
 *.swp
 *.old
+*.cache
+~$*
+
+# File di sistema Windows e macOS
 .DS_Store
 Thumbs.db
 desktop.ini
+$RECYCLE.BIN/
+*.lnk
 
-# Escludi file di PowerShell generati
+# File generati da PowerShell
 *.ps1~
 *.psm1~
 *.ps1xml
 *.pssc
 *.psd1~
-
-# Escludi transcript e debug logs
 PowerShell_transcript*.txt
-debug*.txt
 
-# Escludi file di configurazione personali
+# File di debug e diagnostica
+debug*.txt
+diagnostics*.txt
+
+# File di configurazione personali (non condividere)
 config.local.json
 *.user.json
+*.personal.json
 
-# Escludi cartelle di backup o test
+# Chiavi e segreti (mai committare!)
+*.key
+*.pem
+*.pfx
+*.p12
+secrets.*
+.env
+.env.*
+
+# Cartelle di sviluppo locale
 /test/
+/tests/
 /backup/
 /logs/
+/output/
+/dist/
+/temp/
 
-# Escludi file di VSCode
+# Editor: VS Code
 .vscode/
 *.code-workspace
 
-# Escludi file di Windows
-$RECYCLE.BIN/
-*.lnk
+# Editor: JetBrains (Rider, IntelliJ)
+.idea/
+*.iml
 
-# Escludi cache e file temporanei di Windows
-*.cache
-~$*
+# Editor: Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Editor: Vim / Neovim
+*.swp
+*.swo
+*~
+
+# File generati da strumenti di build
+/build/
+/bin/
+/obj/
+
+# NuGet (se in futuro si usano pacchetti .NET)
+*.nupkg
+**/packages/
+**/TestResults/
+
+# File di lock (non necessari per script PS)
+package-lock.json
+yarn.lock
+
+# File temporanei winget (generati da UpdateAppUtils.psm1)
+*.json.tmp
+winget_export_*.json
