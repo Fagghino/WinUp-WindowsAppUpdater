@@ -1,5 +1,5 @@
 # UpdateAppUtils.psm1
-# Legacy/standalone utility module for BOT-AGGIORNA-APP.
+# Legacy/standalone utility module for WinUp-WindowsAppUpdater.
 #
 # NOTE: This module is NOT imported by update.ps1 (which is self-contained).
 # It is kept for standalone use, external scripting, or future refactoring.
