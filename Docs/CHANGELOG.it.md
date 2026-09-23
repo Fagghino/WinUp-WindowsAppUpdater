@@ -78,7 +78,7 @@ e questo progetto aderisce al [Versionamento Semantico](https://semver.org/lang/
 - Modulo helper `UpdateAppUtils.psm1`.
 - Gestione errori con blocchi try/catch.
 
-[Non rilasciato]: https://github.com/Fagghino/BOT-AGGIORNA-APP/compare/v2.1.0...HEAD
-[2.1.0]: https://github.com/Fagghino/BOT-AGGIORNA-APP/compare/v2.0.0...v2.1.0
-[2.0.0]: https://github.com/Fagghino/BOT-AGGIORNA-APP/compare/v1.0.0...v2.0.0
-[1.0.0]: https://github.com/Fagghino/BOT-AGGIORNA-APP/releases/tag/v1.0.0
+[Non rilasciato]: https://github.com/Fagghino/WinUp-WindowsAppUpdater/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/Fagghino/WinUp-WindowsAppUpdater/compare/v2.0.0...v2.1.0
+[2.0.0]: https://github.com/Fagghino/WinUp-WindowsAppUpdater/compare/v1.0.0...v2.0.0
+[1.0.0]: https://github.com/Fagghino/WinUp-WindowsAppUpdater/releases/tag/v1.0.0
