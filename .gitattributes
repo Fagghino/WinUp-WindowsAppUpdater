@@ -1,0 +1,93 @@
+# =============================================================================
+# .gitattributes — BOT-AGGIORNA-APP
+# =============================================================================
+# Ensures consistent line endings across all platforms and provides hints
+# to GitHub Linguist for correct language detection.
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Default: normalize all text files to LF in the repository,
+# and check out with native line endings on each OS.
+# ---------------------------------------------------------------------------
+* text=auto eol=lf
+
+# ---------------------------------------------------------------------------
+# PowerShell scripts — explicitly LF in repo, CRLF on Windows checkout
+# (Windows tools like PowerShell ISE and VS Code handle both fine)
+# ---------------------------------------------------------------------------
+*.ps1   text eol=crlf
+*.psm1  text eol=crlf
+*.psd1  text eol=crlf
+*.pssc  text eol=crlf
+*.ps1xml text eol=crlf
+
+# ---------------------------------------------------------------------------
+# Markup and documentation — LF everywhere
+# ---------------------------------------------------------------------------
+*.md        text eol=lf
+*.markdown  text eol=lf
+*.txt       text eol=lf
+*.rst       text eol=lf
+
+# ---------------------------------------------------------------------------
+# Data and config files — LF everywhere
+# ---------------------------------------------------------------------------
+*.json      text eol=lf
+*.yaml      text eol=lf
+*.yml       text eol=lf
+*.toml      text eol=lf
+*.xml       text eol=lf
+*.csv       text eol=lf
+
+# ---------------------------------------------------------------------------
+# Shell scripts (for CI/CD or cross-platform use)
+# ---------------------------------------------------------------------------
+*.sh    text eol=lf
+*.bash  text eol=lf
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# ---------------------------------------------------------------------------
+# Binary files — do NOT diff or normalize
+# ---------------------------------------------------------------------------
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.svg   binary
+*.pdf   binary
+*.zip   binary
+*.7z    binary
+*.tar   binary
+*.gz    binary
+*.exe   binary
+*.dll   binary
+*.msi   binary
+
+# ---------------------------------------------------------------------------
+# GitHub Linguist overrides
+# Tell GitHub which files to count as the primary language and which to ignore
+# ---------------------------------------------------------------------------
+
+# Mark the main scripts as PowerShell (primary language)
+*.ps1   linguist-language=PowerShell
+*.psm1  linguist-language=PowerShell
+*.psd1  linguist-language=PowerShell
+
+# Exclude documentation from language stats
+Docs/**        linguist-documentation=true
+README.md      linguist-documentation=true
+LICENSE        linguist-documentation=true
+CHANGELOG.md   linguist-documentation=true
+
+# Exclude config from language stats
+*.json         linguist-generated=false
+config.json    linguist-language=JSON
+
+# ---------------------------------------------------------------------------
+# Diff hints — improve diff readability on GitHub
+# ---------------------------------------------------------------------------
+*.json  diff=json
+*.md    diff=markdown
+*.ps1   diff=powershell
