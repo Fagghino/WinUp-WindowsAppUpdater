@@ -8,8 +8,8 @@ Visualizza, seleziona e aggiorna le tue applicazioni con un solo click, senza bi
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-blue?logo=powershell)](https://learn.microsoft.com/en-us/powershell/)
 [![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-blue?logo=windows)](https://www.microsoft.com/it-it/windows)
 [![License](https://img.shields.io/badge/license-MIT-green)](../LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/Fagghino/BOT-AGGIORNA-APP?style=social)](https://github.com/Fagghino/BOT-AGGIORNA-APP/stargazers)
-[![GitHub last commit](https://img.shields.io/github/last-commit/Fagghino/BOT-AGGIORNA-APP)](https://github.com/Fagghino/BOT-AGGIORNA-APP/commits/main)
+[![GitHub stars](https://img.shields.io/github/stars/Fagghino/WinUp-WindowsAppUpdater?style=social)](https://github.com/Fagghino/WinUp-WindowsAppUpdater/stargazers)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Fagghino/WinUp-WindowsAppUpdater)](https://github.com/Fagghino/WinUp-WindowsAppUpdater/commits/main)
 
 > 🇬🇧 English documentation available in [`README.md`](../README.md)
 
@@ -124,7 +124,7 @@ winget --version
 Copia e incolla nel terminale PowerShell:
 
 ```powershell
-irm https://raw.githubusercontent.com/Fagghino/BOT-AGGIORNA-APP/main/update.ps1 | iex
+irm https://raw.githubusercontent.com/Fagghino/WinUp-WindowsAppUpdater/main/update.ps1 | iex
 ```
 
 **Vantaggi:**
@@ -135,8 +135,8 @@ irm https://raw.githubusercontent.com/Fagghino/BOT-AGGIORNA-APP/main/update.ps1 
 ### **Metodo 2: Clona e Esegui Localmente**
 ```powershell
 # Clona il repository
-git clone https://github.com/Fagghino/BOT-AGGIORNA-APP.git
-cd BOT-AGGIORNA-APP
+git clone https://github.com/Fagghino/WinUp-WindowsAppUpdater.git
+cd WinUp-WindowsAppUpdater
 
 # Esegui lo script
 .\update.ps1
@@ -185,7 +185,7 @@ cd BOT-AGGIORNA-APP
 
 ### Struttura del Progetto
 ```
-📁 BOT-AGGIORNA-APP/
+📁 WinUp-WindowsAppUpdater/
 ├── 📄 update.ps1              # Script principale con GUI
 │   ├── 🔧 Get-InstalledApps   # Recupero app installate
 │   ├── 🔧 Get-UpgradableApps  # Filtraggio app aggiornabili
@@ -376,7 +376,7 @@ Se trovi un bug:
 
 1. **Verifica la versione corrente**
    ```powershell
-   irm https://raw.githubusercontent.com/Fagghino/BOT-AGGIORNA-APP/main/update.ps1 | iex
+   irm https://raw.githubusercontent.com/Fagghino/WinUp-WindowsAppUpdater/main/update.ps1 | iex
    ```
 
 2. **Apri una Issue su GitHub** con:
@@ -401,7 +401,7 @@ Se trovi un bug:
 ### 🔧 Contribuire al Codice
 ```bash
 # 1. Fork del repository
-git clone https://github.com/TUO-USERNAME/BOT-AGGIORNA-APP.git
+git clone https://github.com/TUO-USERNAME/WinUp-WindowsAppUpdater.git
 
 # 2. Crea un branch per la feature
 git checkout -b feature/nome-feature
@@ -426,8 +426,8 @@ git push origin feature/nome-feature
 - ✅ Mantieni compatibilità PowerShell 5.1+
 
 ### 📞 Supporto e Community
-- 📬 **GitHub Issues**: [Apri una issue](https://github.com/Fagghino/BOT-AGGIORNA-APP/issues)
-- 💬 **Discussions**: [Community discussions](https://github.com/Fagghino/BOT-AGGIORNA-APP/discussions)
+- 📬 **GitHub Issues**: [Apri una issue](https://github.com/Fagghino/WinUp-WindowsAppUpdater/issues)
+- 💬 **Discussions**: [Community discussions](https://github.com/Fagghino/WinUp-WindowsAppUpdater/discussions)
 - 📧 **Telegram**: [@MeGustaLaMangusta](https://t.me/MeGustaLaMangusta)
 - ⭐ **Star**: Se il progetto ti è utile, lascia una stella!
 
@@ -468,8 +468,8 @@ Vedi il file [`LICENSE`](../LICENSE) per il testo completo.
 
 **Fagghino**
 - 🐙 GitHub: [@Fagghino](https://github.com/Fagghino)
-- 📦 Repository: [BOT-AGGIORNA-APP](https://github.com/Fagghino/BOT-AGGIORNA-APP)
-- 📫 Issues: [Segnala un problema](https://github.com/Fagghino/BOT-AGGIORNA-APP/issues)
+- 📦 Repository: [WinUp-WindowsAppUpdater](https://github.com/Fagghino/WinUp-WindowsAppUpdater)
+- 📫 Issues: [Segnala un problema](https://github.com/Fagghino/WinUp-WindowsAppUpdater/issues)
 
 ---
 
