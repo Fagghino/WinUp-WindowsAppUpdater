@@ -1,300 +1,260 @@
-# 🚀 Bot Aggiorna App con Winget
+# 🚀 WinUp — Windows App Updater
 
-Interfaccia grafica moderna e intuitiva per la **gestione centralizzata degli aggiornamenti Windows** tramite winget. Visualizza, seleziona e aggiorna le tue applicazioni con un solo click, senza bisogno di terminale o comandi complessi.
+A modern and intuitive graphical interface for **centralized Windows application update management** via winget.
+Browse, select, and update your applications with a single click — no terminal or complex commands needed.
 
-**🆕 Versione 2.0.0** - Interfaccia tabellare completamente ridisegnata!
+**🆕 Version 2.1.0** — Dark theme, async update engine, config.json support!
 
-![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-blue)
-![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+[![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-blue?logo=powershell)](https://learn.microsoft.com/en-us/powershell/)
+[![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-blue?logo=windows)](https://www.microsoft.com/en-us/windows)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/Fagghino/BOT-AGGIORNA-APP?style=social)](https://github.com/Fagghino/BOT-AGGIORNA-APP/stargazers)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Fagghino/BOT-AGGIORNA-APP)](https://github.com/Fagghino/BOT-AGGIORNA-APP/commits/main)
 
----
-
----
-
-## 🌟 Funzionalità Principali
-
-### 📊 **Interfaccia Tabellare Moderna**
-- **Visualizzazione a colonne:** Nome, ID, Versione Attuale, Versione Disponibile
-- **Colonne auto-adattanti:** Larghezza ottimizzata automaticamente al contenuto
-- **Selezione multipla:** Checkbox per ogni applicazione aggiornabile
-- **Ordinamento intelligente:** Dati organizzati e facilmente consultabili
-
-### 🎯 **Sistema di Aggiornamento Intelligente**
-- **Focus su aggiornamenti:** Mostra automaticamente solo le app aggiornabili all'avvio
-- **Confronto versioni:** Visualizzazione chiara versione installata → disponibile
-- **Vista completa opzionale:** Consulta tutte le app installate con un click
-- **Aggiornamenti selettivi:** Scegli esattamente quali app aggiornare
-
-### 🎨 **Design Responsive e Moderno**
-- **Form completamente ridimensionabile:** Finestra adattabile alle tue esigenze
-- **Splitter dinamico:** Ridimensiona tabella e area log trascinando la barra
-- **Layout flessibile:** Tutti i componenti si adattano al ridimensionamento
-- **Interfaccia pulita:** Design moderno con colori piacevoli e intuitivi
-
-### ⚡ **Performance e Usabilità**
-- **Caricamento asincrono:** Interfaccia reattiva durante il recupero dati
-- **Selezione rapida:** Pulsanti "Seleziona tutto" e "Deseleziona tutto"
-- **Log in tempo reale:** Monitora il progresso degli aggiornamenti
-- **Gestione errori:** Feedback chiaro in caso di problemi
-
-### 🛡️ **Sicurezza e Controllo**
-- **Nessun privilegio richiesto:** Funziona senza diritti amministratore per la consultazione
-- **Conferma esplicita:** Nessun aggiornamento automatico senza consenso
-- **Modalità sola lettura:** Vista completa app senza rischio modifiche accidentali
-- **Integrazione winget nativa:** Utilizza il package manager ufficiale Microsoft
+> 🇮🇹 Documentazione italiana disponibile in [`Docs/README.it.md`](Docs/README.it.md)
 
 ---
 
-## ⚙️ Come Funziona
+## 🌟 Key Features
 
-### 🟢 **1. Avvio e Caricamento**
-All'apertura del bot:
-- ✅ Recupero automatico della lista app aggiornabili
-- ✅ Visualizzazione in tabella con versioni chiare
-- ✅ Interfaccia pronta in pochi secondi
+### 📊 Modern Tabular Interface
+- **Column view:** Name, ID, Current Version, Available Version
+- **Auto-sizing columns:** Width automatically optimized to content
+- **Multi-selection:** Checkbox for every upgradable application
+- **Smart layout:** Resizable panels with interactive splitter
 
-### 📦 **2. Selezione Applicazioni**
-**Modalità App Aggiornabili** (default)
-- Visualizza solo le app con aggiornamenti disponibili
-- Checkbox attive per la selezione
-- Confronto diretto versione installata vs disponibile
-- Pulsanti di selezione rapida abilitati
+### 🎯 Intelligent Update System
+- **Update-first focus:** Shows only upgradable apps at startup
+- **Version comparison:** Clear display of installed → available version
+- **Optional full view:** Browse all installed apps with one click
+- **Selective updates:** Choose exactly which apps to update
 
-**Modalità Tutte le App** (consultazione)
-- Visualizza tutte le app installate sul sistema
-- Solo lettura (checkbox nascoste)
-- Utile per inventario software
-- Nessuna possibilità di modifiche accidentali
+### 🎨 Modern Dark Theme UI
+- **Dark mode by default:** Easy on the eyes, professional look
+- **Segoe UI typography:** Native Windows font throughout
+- **Color-coded buttons:** Intuitive visual hierarchy
+- **Status bar:** Real-time status feedback at the bottom
 
-### 🔄 **3. Processo di Aggiornamento**
-1. **Seleziona** le app da aggiornare spuntando le checkbox
-2. **Conferma** cliccando il pulsante "Aggiorna"
-3. **Monitora** il progresso nell'area log
-4. **Completa** quando tutti gli aggiornamenti sono terminati
+### ⚡ Performance & Usability
+- **Async loading:** UI stays responsive during data retrieval
+- **Async updates:** Winget runs in background — GUI never freezes
+- **Quick selection:** "Select All" and "Deselect All" buttons
+- **Real-time log:** Monitor update progress live
 
-### 📊 **4. Interfaccia Dinamica**
+### 🛡️ Safety & Control
+- **No privilege required** for browsing
+- **Explicit confirmation:** No update happens without user action
+- **Read-only mode:** Full app list view with no accidental changes
+- **Native winget integration:** Uses Microsoft's official package manager
+
+---
+
+## ⚙️ How It Works
+
+### 🟢 1. Startup & Loading
+When the app opens:
+- ✅ Automatically fetches the list of upgradable apps (async)
+- ✅ Displays them in a table with clear version info
+- ✅ Interface is ready in a few seconds
+
+### 📦 2. Selecting Applications
+
+**Upgradable Apps Mode** *(default)*
+- Shows only apps with available updates
+- Active checkboxes for selection
+- Direct comparison: installed vs. available version
+- Quick-select buttons enabled
+
+**All Apps Mode** *(read-only)*
+- Shows all winget-installed apps on the system
+- No checkboxes (view-only)
+- Useful for software inventory
+- No accidental modifications possible
+
+### 🔄 3. Update Process
+1. **Select** apps by checking their checkboxes
+2. **Click** the "Update" button
+3. **Monitor** progress in the log area (non-blocking)
+4. **Done** when all updates are complete
+
+### 📊 4. Dynamic Interface Layout
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  Nome App        │ ID Package    │ v. Attuale │ v. Disponib.│
+│  App Name        │ Package ID    │ Installed  │ Available   │
 ├──────────────────┼───────────────┼────────────┼─────────────┤
 │ ☑ Google Chrome  │ Google.Chrome │ 120.0.6099 │ 121.0.6167  │
 │ ☐ Firefox        │ Mozilla.Fire. │ 121.0      │ 122.0       │
 │ ☑ VS Code        │ Microsoft.Vi. │ 1.85.1     │ 1.86.0      │
 └──────────────────┴───────────────┴────────────┴─────────────┘
-╔═══════════════════════════════════════════════════════════╗
-║ ◀── Ridimensiona trascinando la barra ──▶                ║
-╚═══════════════════════════════════════════════════════════╝
+══════════════════ drag to resize ═══════════════════════════
 ┌─────────────────────────────────────────────────────────────┐
-│ LOG AGGIORNAMENTI                                           │
-│ > Aggiornamento di Google Chrome...                        │
-│ > Scaricamento versione 121.0.6167...                      │
-│ > Installazione completata con successo!                   │
+│ UPDATE LOG                                                  │
+│ > Updating Google Chrome...                                 │
+│ > Downloading version 121.0.6167...                         │
+│ > Installation completed successfully!                      │
 └─────────────────────────────────────────────────────────────┘
-[Aggiorna] [Seleziona Tutto] [Deseleziona] [Mostra Tutte] [✕]
+[Update] [Select All] [Deselect All] [Show All Apps] [Close]
 ```
 
 ---
 
-## 📦 Installazione e Utilizzo
+## 📦 Installation & Usage
 
-### Prerequisiti
-- Windows 10 (versione 1809 o superiore) o Windows 11
-- PowerShell 5.1+ (incluso in Windows)
-- Winget (incluso di default in Windows 11)
-  - **Windows 10:** Installa "App Installer" dal Microsoft Store
+### Prerequisites
+- Windows 10 (version 1809 or later) or Windows 11
+- PowerShell 5.1+ *(included in Windows)*
+- Winget *(included by default in Windows 11)*
+  - **Windows 10:** Install "App Installer" from the Microsoft Store
 
-### Verifica Prerequisiti
+### Verify Prerequisites
 ```powershell
-# Verifica versione PowerShell (deve essere >= 5.1)
+# Check PowerShell version (must be >= 5.1)
 $PSVersionTable.PSVersion
 
-# Verifica installazione winget
+# Check winget installation
 winget --version
-
-# Output atteso: v1.x.xxxxx o superiore
+# Expected output: v1.x.xxxxx or higher
 ```
 
 ---
 
-## 🚀 Metodi di Installazione
+## 🚀 Installation Methods
 
-### **Metodo 1: Esecuzione Diretta** ⚡ (Consigliato)
-Copia e incolla nel terminale PowerShell:
+### **Method 1: Direct Execution** ⚡ *(Recommended)*
+Copy and paste into a PowerShell terminal:
 
 ```powershell
 irm https://raw.githubusercontent.com/Fagghino/BOT-AGGIORNA-APP/main/update.ps1 | iex
 ```
 
-**Vantaggi:**
-- ✅ Nessuna installazione necessaria
-- ✅ Sempre l'ultima versione
-- ✅ Un solo comando
+**Advantages:**
+- ✅ No installation needed
+- ✅ Always the latest version
+- ✅ Single command
 
-### **Metodo 2: Clona e Esegui Localmente**
+### **Method 2: Clone & Run Locally**
 ```powershell
-# Clona il repository
+# Clone the repository
 git clone https://github.com/Fagghino/BOT-AGGIORNA-APP.git
 cd BOT-AGGIORNA-APP
 
-# Esegui lo script
+# Run the script
 .\update.ps1
 ```
 
-**Vantaggi:**
-- ✅ Possibilità di personalizzazione
-- ✅ Funziona offline (dopo il primo utilizzo)
-- ✅ Controllo completo del codice
+**Advantages:**
+- ✅ Full customization possible
+- ✅ Works offline after first use
+- ✅ Complete control over the code
 
-### **Metodo 3: Download Diretto**
-1. Scarica `update.ps1` dal repository
-2. Salva in una cartella a tua scelta
-3. Esegui con doppio click o da PowerShell
-
----
-
-## 📋 Requisiti di Sistema
-
-### **Sistema Operativo**
-- ✅ Windows 10 (versione 1809 o superiore)
-- ✅ Windows 11 (tutte le versioni)
-
-### **Software Necessario**
-- ✅ **PowerShell 5.1+** (incluso in Windows)
-- ✅ **Winget** (incluso di default in Windows 11)
-  - Windows 10: Installa "App Installer" dal Microsoft Store
-
-### **Requisiti Opzionali**
-- 🔓 Permessi amministratore: Solo per aggiornare alcuni software di sistema
-- 🌐 Connessione internet: Necessaria per scaricare gli aggiornamenti
+### **Method 3: Direct Download**
+1. Download `update.ps1` from the repository
+2. Save it to a folder of your choice
+3. Run by double-clicking or from PowerShell
 
 ---
 
-## 🛠️ Tecnologie e Architettura
+## 📋 System Requirements
 
-### **Stack Tecnologico**
-- **PowerShell 5.1+** - Linguaggio principale e runtime
-- **Windows Forms** - Framework per interfaccia grafica nativa
-- **System.Drawing** - Libreria per rendering e grafica
-- **Winget CLI** - Package manager Microsoft integrato
-- **DataGridView** - Componente tabellare avanzato per visualizzazione dati
-- **BackgroundWorker** - Threading asincrono per operazioni lunghe
+### Operating System
+- ✅ Windows 10 (version 1809 or later)
+- ✅ Windows 11 (all versions)
 
-### **Architettura Modulare**
+### Required Software
+- ✅ **PowerShell 5.1+** *(included in Windows)*
+- ✅ **Winget** *(included by default in Windows 11)*
+  - Windows 10: Install "App Installer" from the Microsoft Store
+
+### Optional Requirements
+- 🔓 Administrator privileges: Only needed to update some system-level software
+- 🌐 Internet connection: Required to download updates
+
+---
+
+## 🛠️ Technologies & Architecture
+
+### Tech Stack
+| Component | Purpose |
+|-----------|---------|
+| **PowerShell 5.1+** | Main language and runtime |
+| **Windows Forms** | Native GUI framework |
+| **System.Drawing** | Rendering and graphics library |
+| **Winget CLI** | Microsoft's integrated package manager |
+| **DataGridView** | Advanced tabular display component |
+| **BackgroundWorker** | Async threading for long-running operations |
+
+### Project Structure
 ```
 📁 BOT-AGGIORNA-APP/
-├── 📄 update.ps1              # Script principale con GUI
-│   ├── 🔧 Get-InstalledApps   # Recupero app installate
-│   ├── 🔧 Get-UpgradableApps  # Filtraggio app aggiornabili
-│   ├── 🔧 Update-SelectedApps # Sistema aggiornamento
-│   └── 🎨 Show-UpdateGUI      # Interfaccia grafica
-├── 📄 UpdateAppUtils.psm1     # Modulo utility (legacy/compatibilità)
-├── 📄 config.json             # Configurazione (source, log level)
-├── 📄 README.md               # Documentazione completa
-├── 📄 LICENSE                 # Licenza MIT
-└── 📄 .gitignore             # Esclusioni Git
-
-**Caratteristiche architetturali:**
-- 🎯 **Monolitico ottimizzato:** Tutto in un file per portabilità
-- 🎯 **Parsing intelligente:** Gestione automatica output winget multilingua
-- 🎯 **Fallback robusti:** Sistema di recupero automatico in caso di errori
-- 🎯 **UI Thread-safe:** Operazioni lunghe non bloccano l'interfaccia
-- 🎯 **Memoria ottimizzata:** Gestione efficiente di liste grandi
+├── 📄 update.ps1              # Main script with GUI
+│   ├── 🔧 Get-InstalledApps   # Installed apps retrieval
+│   ├── 🔧 Get-UpgradableApps  # Upgradable apps filter
+│   ├── 🔧 Update-SelectedApps # Update engine (async)
+│   └── 🎨 Show-UpdateGUI      # Graphical interface
+├── 📄 UpdateAppUtils.psm1     # Utility module (legacy/standalone)
+├── 📄 config.json             # Configuration (source, log level)
+├── 📁 Docs/
+│   ├── 📄 README.it.md        # Italian documentation
+│   ├── 📄 CHANGELOG.en.md     # English changelog
+│   └── 📄 CHANGELOG.it.md     # Italian changelog
+├── 📄 README.md               # This file (English)
+├── 📄 LICENSE                 # MIT License
+├── 📄 .gitignore              # Git exclusions
+└── 📄 .gitattributes          # Git attributes (line endings, linguist)
 ```
 
-### **🎨 Sistema di Interfaccia**
-```
-┌─────────── Form Principale (900×700) ──────────────┐
-│                                                     │
-│  ┌────── Top Panel (ridimensionabile) ──────────┐  │
-│  │                                               │  │
-│  │   [DataGridView - Tabella App]               │  │
-│  │   • 5 colonne (Seleziona, Nome, ID, v.Att...)│  │
-│  │   • Auto-sizing al contenuto                 │  │
-│  │   • Ordinamento e selezione multipla         │  │
-│  │                                               │  │
-│  └───────────────────────────────────────────────┘  │
-│  ════════════ Splitter (ridimensiona) ════════════  │
-│  ┌───────── Button Panel (60px fisso) ─────────┐   │
-│  │ [Aggiorna] [Seleziona] [Deseleziona] [+] [X]│   │
-│  └───────────────────────────────────────────────┘  │
-│  ┌───── Bottom Panel (ridimensionabile) ───────┐   │
-│  │                                              │   │
-│  │   [Log Box - Area log testuale]             │   │
-│  │   • Scroll verticale                         │   │
-│  │   • Read-only                                │   │
-│  │   • Monitoraggio real-time                   │   │
-│  │                                              │   │
-│  └──────────────────────────────────────────────┘   │
-│                                                     │
-└─────────────────────────────────────────────────────┘
+### Architectural Highlights
+- 🎯 **Self-contained:** Everything in one file for maximum portability
+- 🎯 **Smart parsing:** Automatic handling of multilingual winget output (IT/EN)
+- 🎯 **Robust fallbacks:** Automatic recovery from errors via try/catch chains
+- 🎯 **Thread-safe UI:** Long operations never block the interface
+- 🎯 **config.json aware:** Source and log level loaded from configuration
 
-**Funzionalità UI:**
-- 📐 Ridimensionamento: Form, pannelli e splitter
-- 🎯 Colonne adattive: Larghezza automatica al contenuto
-- 🔄 Dock system: Layout responsive e flessibile
-- ⚡ Threading: Caricamento asincrono non bloccante
-```
-
-### **🔄 Flusso Dati**
+### Data Flow
 ```mermaid
 graph LR
-    A[Avvio] --> B[Get-UpgradableApps]
-    B --> C{Parsing Output}
-    C --> D[Popolamento DataGridView]
-    D --> E[Utente Seleziona]
-    E --> F[Update-SelectedApps]
-    F --> G[Winget Upgrade]
-    G --> H[Log Real-time]
-    H --> I[Completamento]
+    A[Startup] --> B[Read config.json]
+    B --> C[Check winget available]
+    C --> D[BackgroundWorker: Get-UpgradableApps]
+    D --> E[Populate DataGridView]
+    E --> F[User Selects Apps]
+    F --> G[BackgroundWorker: Update-SelectedApps]
+    G --> H[Winget Upgrade per app]
+    H --> I[Real-time Log]
+    I --> J[Completion]
 ```
 
 ---
 
-## 📊 Funzionalità Avanzate
+## 📊 Advanced Features
 
-### **🎯 Sistema di Parsing Intelligente**
-Il bot include un sistema avanzato di parsing dell'output di winget:
+### 🎯 Intelligent Parsing System
+The bot includes an advanced winget output parsing system:
+- ✅ Multilingual output support (Italian, English, etc.)
+- ✅ Dynamic column-based tabular format parsing
+- ✅ Separator and header handling
+- ✅ Robust version extraction
+- ✅ Fallback for non-standard formats
 
-```powershell
-# Supporta automaticamente:
-✅ Output multilingua (Italiano, Inglese, ecc.)
-✅ Formato tabulare con colonne dinamiche
-✅ Gestione separatori e header
-✅ Estrazione versioni robusta
-✅ Fallback per formati non standard
-```
+### ⚡ Asynchronous Architecture
+- **Startup BackgroundWorker:** Data loading in background
+- **Update BackgroundWorker:** Winget upgrades run without freezing the UI
+- **Event-driven UI:** Automatic UI updates via `RunWorkerCompleted`
+- **No freezing:** Interface always responsive
 
-### **⚡ Gestione Asincrona**
-- **BackgroundWorker:** Caricamento dati in background
-- **Thread UI separato:** Interfaccia sempre reattiva
-- **Event-driven:** Aggiornamenti automatici UI
-- **No freezing:** Nessun blocco dell'interfaccia
-
-### **🎨 Componenti UI Avanzati**
-- **DataGridView personalizzato:** Checkbox, testo, colonne multiple
-- **Auto-sizing intelligente:** Calcolo automatico larghezza ottimale
-- **Splitter interattivo:** Ridimensionamento manuale pannelli
-- **Dock system:** Layout completamente responsivo
-
-### **🛡️ Gestione Errori**
-```powershell
-# Sistema robusto di error handling:
-✅ Try-Catch su tutte le operazioni critiche
-✅ Logging dettagliato degli errori
-✅ Messaggi utente friendly
-✅ Fallback automatici
-✅ Recovery graceful da stati invalidi
-```
+### 🛡️ Error Handling
+- ✅ Try/Catch on all critical operations
+- ✅ Winget availability check at startup
+- ✅ User-friendly messages
+- ✅ Automatic fallbacks
+- ✅ Graceful recovery from invalid states
 
 ---
 
----
+## ⚙️ Configuration
 
-## ⚙️ Configurazione
-
-### **File config.json**
-Il file di configurazione permette personalizzazioni avanzate:
+### config.json
+The configuration file allows advanced customization:
 
 ```json
 {
@@ -303,391 +263,230 @@ Il file di configurazione permette personalizzazioni avanzate:
 }
 ```
 
-### **Parametri Disponibili**
-- **`wingetSource`**: Source winget da utilizzare (default: "winget")
-  - Valori: `"winget"`, `"msstore"`, ecc.
-- **`logLevel`**: Livello dettaglio log (default: "info")
-  - Valori: `"debug"`, `"info"`, `"warning"`, `"error"`
+### Available Parameters
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `wingetSource` | `"winget"` | Winget source to use (`"winget"`, `"msstore"`, etc.) |
+| `logLevel` | `"info"` | Log detail level (`"debug"`, `"info"`, `"warning"`, `"error"`) |
 
-### **Personalizzazione Interfaccia**
-Modifica `update.ps1` per personalizzare:
+### UI Customization
+Edit `update.ps1` to customize:
 
 ```powershell
-# Dimensioni form
+# Form dimensions
 $form.Size = New-Object System.Drawing.Size(900, 700)
 
-# Colori
-$form.BackColor = [System.Drawing.Color]::FromArgb(245, 245, 245)
+# Theme colors (dark mode defaults)
+$form.BackColor = [System.Drawing.Color]::FromArgb(30, 30, 46)
 
-# Altezza pannelli
+# Panel heights
 $topPanel.Height = 320
 ```
 
-### **🎨 Opzioni di Personalizzazione**
-- Dimensioni finestra iniziali
-- Colori tema (sfondo, testo, pulsanti)
-- Altezza pannelli (tabella vs log)
-- Font e dimensioni testo
-- Colonne tabella (ordine, larghezza)
-
 ---
 
-## 🐛 Risoluzione Problemi
+## 🐛 Troubleshooting
 
-### **❌ Winget non trovato**
+### ❌ Winget not found
 ```powershell
-# Verifica installazione winget
+# Verify winget installation
 winget --version
-
-# Output atteso: v1.x.xxxxx
+# Expected: v1.x.xxxxx
 ```
+**Solution:**
+1. Windows 11: Winget is already installed
+2. Windows 10: Install "App Installer" from the Microsoft Store
+3. Alternative: Download from [GitHub Winget Releases](https://github.com/microsoft/winget-cli/releases)
 
-**Soluzione:**
-1. Windows 11: Winget è già installato
-2. Windows 10: Installa "App Installer" dal Microsoft Store
-3. Alternativa: Scarica da [GitHub Winget](https://github.com/microsoft/winget-cli/releases)
-
-### **🔒 Errori di permessi**
+### 🔒 Permission errors
 ```powershell
-# Consenti esecuzione script PowerShell
+# Allow PowerShell script execution
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
-# Oppure esegui PowerShell come amministratore
-# Tasto destro > "Esegui come amministratore"
+# Or run PowerShell as administrator
+# Right-click > "Run as administrator"
 ```
 
-### **📋 Nessuna app visualizzata**
-**Possibili cause:**
-- ✅ Winget non configurato correttamente
-- ✅ Nessuna app installata tramite winget
-- ✅ Connessione internet assente
+### 📋 No apps displayed
+**Possible causes:**
+- Winget not configured correctly
+- No apps installed via winget
+- No internet connection
 
-**Verifica manuale:**
+**Manual verification:**
 ```powershell
-# Test winget list
 winget list
-
-# Test winget upgrade
 winget upgrade
 ```
 
-### **⚠️ Errore durante aggiornamento**
-**Soluzioni:**
-1. **Esegui come amministratore** per app di sistema
-2. **Chiudi l'app** prima di aggiornarla
-3. **Verifica spazio disco** disponibile
-4. **Controlla log** nell'area messaggi del bot
+### ⚠️ Error during update
+**Solutions:**
+1. **Run as administrator** for system apps
+2. **Close the app** before updating it
+3. **Check free disk space**
+4. **Review the log** in the bot's message area
 
-### **🔄 Form sempre in primo piano (RISOLTO v2.0)**
-Problema risolto nella versione 2.0.0. Se persiste:
-- Riavvia il bot
-- Scarica l'ultima versione
-- Verifica di non avere istanze multiple attive
-
----
-
-## 📊 Funzionalità Avanzate
-
-### **🎯 Sistema di Parsing Intelligente**
-Il bot include un sistema avanzato di parsing dell'output di winget:
-
+### 🔍 Debugging
 ```powershell
-# Supporta automaticamente:
-✅ Output multilingua (Italiano, Inglese, ecc.)
-✅ Formato tabulare con colonne dinamiche
-✅ Gestione separatori e header
-✅ Estrazione versioni robusta
-✅ Fallback per formati non standard
-```
-
-### **⚡ Gestione Asincrona**
-- **BackgroundWorker:** Caricamento dati in background
-- **Thread UI separato:** Interfaccia sempre reattiva
-- **Event-driven:** Aggiornamenti automatici UI
-- **No freezing:** Nessun blocco dell'interfaccia
-
-### **🎨 Componenti UI Avanzati**
-- **DataGridView personalizzato:** Checkbox, testo, colonne multiple
-- **Auto-sizing intelligente:** Calcolo automatico larghezza ottimale
-- **Splitter interattivo:** Ridimensionamento manuale pannelli
-- **Dock system:** Layout completamente responsivo
-
-### **🛡️ Gestione Errori**
-```powershell
-# Sistema robusto di error handling:
-✅ Try-Catch su tutte le operazioni critiche
-✅ Logging dettagliato degli errori
-✅ Messaggi utente friendly
-✅ Fallback automatici
-✅ Recovery graceful da stati invalidi
-```
-
----
-
-## 📝 Changelog
-
-### **🎯 Versione 2.0.0** (Corrente - Novembre 2025)
-#### **✨ Nuove Funzionalità**
-- **Interfaccia tabellare:** DataGridView al posto di CheckedListBox
-- **Colonne intelligenti:** Seleziona, Nome, ID, Versione Attuale, Versione Disponibile
-- **Auto-sizing:** Colonne che si adattano automaticamente al contenuto
-- **Form ridimensionabile:** Finestra con dimensione minima e massimizzabile
-- **Splitter dinamico:** Ridimensionamento manuale tra tabella e log
-- **Layout responsive:** Sistema Dock per adattamento automatico
-- **Vista aggiornabili prioritaria:** Mostra app aggiornabili all'avvio (non tutte)
-- **Checkbox condizionali:** Nascoste in modalità "Tutte le app"
-- **Pulsanti intelligenti:** Disabilitati in modalità sola lettura
-
-#### **🔧 Miglioramenti**
-- **Parsing versioni migliorato:** Lettura corretta da `winget list` senza filtri
-- **Gestione colonne:** Calcolo automatico limiti e posizioni
-- **Multilingua:** Supporto automatico Italiano/Inglese per header
-- **Performance:** Caricamento asincrono ottimizzato
-- **UX:** Interfaccia più intuitiva e professionale
-
-#### **🐛 Bug Fix**
-- **MAJOR:** Form non più sempre in primo piano (rimosso `$form.Topmost = $true`)
-- **CRITICAL:** Versioni non visualizzate in "Tutte le app" (parsing corretto)
-- **FIX:** Gestione corretta valori null/vuoti nelle celle
-- **FIX:** Ridimensionamento form senza problemi di sovrapposizione
-
-### **📦 Versione 1.0.0** (Release Iniziale)
-#### **✨ Funzionalità Base**
-- Interfaccia CheckedListBox semplice
-- Lista app installate con winget
-- Selezione multipla e aggiornamento
-- Area log per monitoraggio
-- Pulsanti base (Aggiorna, Seleziona, Deseleziona)
-
-#### **🎯 Caratteristiche**
-- Parsing output winget con regex
-- Gestione errori base
-- Configurazione config.json
-
----
-
-## 📊 Monitoraggio e Performance
-
-### **📈 Metriche di Sistema**
-- **Tempo avvio:** ~2-3 secondi per caricamento lista app
-- **Memoria utilizzata:** ~50-80 MB durante esecuzione normale
-- **CPU usage:** Minimo, picchi solo durante aggiornamenti
-- **Compatibilità:** Windows 10 (1809+) e Windows 11
-
-### **🔍 Debugging e Logs**
-```powershell
-# Abilita logging dettagliato
+# Enable verbose output
 $DebugPreference = "Continue"
 .\update.ps1
 
-# Controlla log winget
+# Check winget logs
 Get-Content "$env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_*\LocalState\DiagOutputDir\*.log"
 ```
 
-### **⚡ Ottimizzazioni Applicate**
-- Cache locale lista app per 5 minuti
-- Caricamento asincrono non bloccante
-- Parsing ottimizzato con regex compilate
-- Gestione memoria efficiente per liste grandi
-- UI thread separato per responsiveness
+---
+
+## 📊 Performance
+
+| Metric | Value |
+|--------|-------|
+| Startup time | ~2–3 seconds |
+| Memory usage | ~50–80 MB |
+| CPU usage | Minimal (spikes only during updates) |
+| Compatibility | Windows 10 (1809+) and Windows 11 |
 
 ---
 
-## 🎯 Roadmap Future
+## 🎯 Roadmap
 
-### **🔮 Funzionalità Pianificate**
-- **🔍 Ricerca e filtri:** Barra di ricerca per trovare app rapidamente
-- **📊 Statistiche:** Dashboard con info aggiornamenti, spazio risparmiato, ecc.
-- **🔔 Notifiche:** Sistema di notifiche per aggiornamenti disponibili
-- **⏰ Aggiornamenti programmati:** Scheduler per aggiornamenti automatici
-- **📦 Gruppi di app:** Crea e gestisci gruppi personalizzati di applicazioni
-- **🎨 Temi:** Tema chiaro/scuro e personalizzazione colori
-- **� Export report:** Esporta lista app e aggiornamenti in CSV/Excel
-- **🔐 Lista esclusioni:** Blocca aggiornamenti per app specifiche
-- **🌐 Multi-source:** Supporto msstore, custom repositories
-- **📱 Profili:** Salva configurazioni e selezioni preferite
+### Planned Features
+- **🔍 Search & filters:** Search bar to quickly find apps
+- **📊 Statistics:** Dashboard with update info, saved space, etc.
+- **🔔 Notifications:** System notifications for available updates
+- **⏰ Scheduled updates:** Automatic update scheduler
+- **📦 App groups:** Create and manage custom application groups
+- **🔐 Exclusion list:** Block updates for specific apps
+- **🌐 Multi-source:** Full msstore and custom repository support
+- **📁 Export report:** Export app list and update history to CSV/Excel
 
-### **🛠️ Miglioramenti Tecnici**
-- **⚡ Cache intelligente:** Memorizza lista app per avvii più rapidi
-- **🔄 Auto-refresh:** Rilevamento automatico nuove app/aggiornamenti
-- **📊 Grafici:** Visualizzazione statistica con Charts
-- **�️ Database locale:** SQLite per storico aggiornamenti
-- **🔌 API REST:** Interfaccia API per automazione
-- **🐳 Containerizzazione:** Docker support per ambienti isolati
-- **📝 Logging avanzato:** Sistema log strutturato con rotazione
-- **🧪 Unit testing:** Suite di test automatici
-- **📚 Documentazione:** Wiki completa e video tutorial
-- **🌍 Internazionalizzazione:** Supporto multilingua completo
-
-### **🎨 UI/UX Improvements**
-- **🎯 Wizard iniziale:** Guida setup primo avvio
-- **💡 Tooltips:** Suggerimenti contestuali
-- **⌨️ Shortcuts:** Scorciatoie da tastiera
-- **🔊 Feedback audio:** Segnali sonori per operazioni completate
-- **📱 Responsive avanzato:** Layout adattivo multi-monitor
-- **🎨 Animazioni:** Transizioni fluide e loading indicators
+### Technical Improvements
+- **🔄 Auto-refresh:** Automatic detection of new apps/updates
+- **📝 Structured logging:** Log rotation and persistence
+- **🧪 Unit testing:** Automated test suite
+- **🌍 Full i18n:** Complete multilingual support via resource files
 
 ---
 
-## 🤝 Contributi e Supporto
+## 🤝 Contributing & Support
 
-### **🐛 Segnalazione Bug**
-Se trovi un bug o un comportamento anomalo:
+### 🐛 Reporting Bugs
+If you find a bug or unexpected behavior:
 
-1. **Verifica versione corrente**
+1. **Check the current version**
    ```powershell
-   # Controlla se hai l'ultima versione
    irm https://raw.githubusercontent.com/Fagghino/BOT-AGGIORNA-APP/main/update.ps1 | iex
    ```
 
-2. **Crea una Issue su GitHub** con:
-   - 📝 Descrizione dettagliata del problema
-   - 🔢 Versione Windows e PowerShell
-   - 📸 Screenshot se applicabile
-   - 📋 Passi per riprodurre il bug
-   - 📄 Messaggi di errore completi
+2. **Open a GitHub Issue** with:
+   - 📝 Detailed problem description
+   - 🔢 Windows and PowerShell version
+   - 📸 Screenshots if applicable
+   - 📋 Steps to reproduce
+   - 📄 Full error messages
 
-3. **Include informazioni di sistema:**
+3. **Include system info:**
    ```powershell
-   # Versione PowerShell
-   $PSVersionTable.PSVersion
-   
-   # Versione Winget
-   winget --version
-   
-   # Versione Windows
-   [System.Environment]::OSVersion.Version
+   $PSVersionTable.PSVersion       # PowerShell version
+   winget --version                # Winget version
+   [System.Environment]::OSVersion.Version  # Windows version
    ```
 
-### **💡 Richieste Funzionalità**
-Per proporre nuove funzionalità:
+### 💡 Feature Requests
+1. Check the roadmap first
+2. Open an Issue with the `enhancement` label
+3. Clearly describe: use case, desired feature, expected benefits
 
-1. **Verifica roadmap** per controllare se è già pianificata
-2. **Apri una Issue** con tag `enhancement`
-3. **Descrivi chiaramente:**
-   - 🎯 Caso d'uso specifico
-   - 💡 Funzionalità desiderata
-   - 📊 Benefici attesi
-   - 🎨 Mockup o esempi (se disponibili)
-   - 💼 Priorità suggerita
-
-### **🔧 Contribuire al Codice**
-Vuoi contribuire direttamente? Fantastico!
-
-**Processo:**
+### 🔧 Contributing Code
 ```bash
-# 1. Fork del repository
-git clone https://github.com/TUO-USERNAME/BOT-AGGIORNA-APP.git
+# 1. Fork the repository
+git clone https://github.com/YOUR-USERNAME/BOT-AGGIORNA-APP.git
 
-# 2. Crea un branch per la feature
-git checkout -b feature/nome-feature
+# 2. Create a feature branch
+git checkout -b feature/feature-name
 
-# 3. Sviluppa e testa le modifiche
-# ... coding ...
+# 3. Develop and test your changes
 
-# 4. Commit con messaggio descrittivo
-git commit -m "feat: aggiunta ricerca app in tempo reale"
+# 4. Commit with a descriptive message
+git commit -m "feat: add real-time app search"
 
-# 5. Push al tuo fork
-git push origin feature/nome-feature
+# 5. Push to your fork
+git push origin feature/feature-name
 
-# 6. Apri una Pull Request su GitHub
+# 6. Open a Pull Request on GitHub
 ```
 
-**Linee guida:**
-- ✅ Codice commentato e leggibile
-- ✅ Segui lo stile esistente
-- ✅ Testa su Windows 10 e 11
-- ✅ Aggiorna README se necessario
-- ✅ Nessuna dipendenza esterna pesante
-- ✅ Mantieni compatibilità PowerShell 5.1+
+**Guidelines:**
+- ✅ Commented and readable code
+- ✅ Follow existing code style
+- ✅ Test on both Windows 10 and 11
+- ✅ Update documentation if needed
+- ✅ No heavy external dependencies
+- ✅ Maintain PowerShell 5.1+ compatibility
 
-### **📞 Supporto e Community**
-- 📬 **GitHub Issues**: [Apri una issue](https://github.com/Fagghino/BOT-AGGIORNA-APP/issues)
+### 📞 Support & Community
+- 📬 **GitHub Issues**: [Open an issue](https://github.com/Fagghino/BOT-AGGIORNA-APP/issues)
 - 💬 **Discussions**: [Community discussions](https://github.com/Fagghino/BOT-AGGIORNA-APP/discussions)
 - 📧 **Telegram**: [@MeGustaLaMangusta](https://t.me/MeGustaLaMangusta)
-- ⭐ **Star**: Se il progetto ti è utile, lascia una stella!
+- ⭐ **Star**: If the project is useful to you, leave a star!
 
 ---
 
-## 📄 Licenza
+## 📄 License
 
-Questo progetto è rilasciato sotto licenza **MIT**.
+This project is released under the **MIT License**.
 
-### **✅ Cosa puoi fare:**
-- ✅ Usare commercialmente
-- ✅ Modificare il codice
-- ✅ Distribuire copie
-- ✅ Uso privato
-- ✅ Integrare in altri progetti
+| You can | Conditions | Limitations |
+|---------|-----------|-------------|
+| ✅ Use commercially | 📋 Include license copy | ⚠️ No warranty provided |
+| ✅ Modify the code | 📋 Credit the original project | ⚠️ No author liability |
+| ✅ Distribute copies | | |
+| ✅ Private use | | |
+| ✅ Integrate in other projects | | |
 
-### **📋 Condizioni:**
-- 📋 Includere copia della licenza
-- 📋 Attribuire il progetto originale
-
-### **⚠️ Limitazioni:**
-- ⚠️ Nessuna garanzia fornita
-- ⚠️ Nessuna responsabilità dell'autore
-
-Vedi il file [`LICENSE`](LICENSE) per il testo completo.
+See the [`LICENSE`](LICENSE) file for the full text.
 
 ---
 
-## 🙏 Ringraziamenti
+## 🙏 Acknowledgements
 
-### **🎯 Tecnologie Utilizzate**
-- **Microsoft Winget** - Package manager ufficiale
-- **PowerShell** - Linguaggio e runtime
-- **Windows Forms** - Framework UI
-- **.NET Framework** - Librerie base
+### Technologies Used
+- **[Microsoft Winget](https://github.com/microsoft/winget-cli)** — Official package manager
+- **PowerShell** — Language and runtime
+- **Windows Forms** — UI framework
+- **.NET Framework** — Base libraries
 
-### **👥 Contributors**
-Grazie a tutti coloro che hanno contribuito al progetto!
-
-<!-- Contributors list will be auto-generated -->
-
-### **💖 Progetti Correlati**
-- [WingetUI](https://github.com/martinet101/WingetUI) - GUI alternativa per winget
-- [Winget-AutoUpdate](https://github.com/Romanitho/Winget-AutoUpdate) - Aggiornamenti automatici
-- [Chocolatey](https://chocolatey.org/) - Package manager alternativo
+### Related Projects
+- [WingetUI](https://github.com/martinet101/WingetUI) — Alternative GUI for winget
+- [Winget-AutoUpdate](https://github.com/Romanitho/Winget-AutoUpdate) — Automatic updates
+- [Chocolatey](https://chocolatey.org/) — Alternative package manager
 
 ---
 
-## 👨‍💻 Autore
+## 👨‍💻 Author
 
 **Fagghino**
 - 🐙 GitHub: [@Fagghino](https://github.com/Fagghino)
 - 📦 Repository: [BOT-AGGIORNA-APP](https://github.com/Fagghino/BOT-AGGIORNA-APP)
-- 📫 Issues: [Segnala un problema](https://github.com/Fagghino/BOT-AGGIORNA-APP/issues)
+- 📫 Issues: [Report a problem](https://github.com/Fagghino/BOT-AGGIORNA-APP/issues)
 
 ---
 
-## ⭐ Supporta il Progetto
+## ⭐ Support the Project
 
-Se questo progetto ti è stato utile, considera di:
+If this project has been useful to you, consider:
 
-- ⭐ **Dare una stella** al repository
-- 🐛 **Segnalare bug** per migliorare la qualità
-- 💡 **Suggerire funzionalità** per espandere le possibilità
-- 🔀 **Contribuire** con pull request
-- 📢 **Condividere** con altri utenti Windows
-- 📝 **Scrivere una review** o articolo
-- ☕ **Offrire un caffè** (coming soon)
+- ⭐ **Starring** the repository
+- 🐛 **Reporting bugs** to improve quality
+- 💡 **Suggesting features** to expand possibilities
+- 🔀 **Contributing** with pull requests
+- 📢 **Sharing** with other Windows users
 
-Ogni contributo, piccolo o grande, è molto apprezzato! 🙏
-
----
-
-## 📊 Statistiche Progetto
-
-![GitHub stars](https://img.shields.io/github/stars/Fagghino/BOT-AGGIORNA-APP?style=social)
-![GitHub forks](https://img.shields.io/github/forks/Fagghino/BOT-AGGIORNA-APP?style=social)
-![GitHub issues](https://img.shields.io/github/issues/Fagghino/BOT-AGGIORNA-APP)
-![GitHub license](https://img.shields.io/github/license/Fagghino/BOT-AGGIORNA-APP)
-![GitHub last commit](https://img.shields.io/github/last-commit/Fagghino/BOT-AGGIORNA-APP)
+Every contribution, big or small, is greatly appreciated! 🙏
 
 ---
 
 **Made with ❤️ and PowerShell**
 
-*Semplifica la gestione dei tuoi software Windows, un click alla volta.* 🚀
+*Simplify your Windows software management, one click at a time.* 🚀
